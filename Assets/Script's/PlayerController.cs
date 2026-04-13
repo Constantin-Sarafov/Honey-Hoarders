@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private HealthManager healthManager;
-    private SpriteRenderer sr;
 
     private Vector2 movement;
 
@@ -16,7 +15,6 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         healthManager = GetComponent<HealthManager>();
-        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -28,12 +26,6 @@ public class PlayerController : MonoBehaviour
 
         anim.SetFloat("Speed", movement.magnitude);
 
-        // Flip sprite based on horizontal movement
-        if (moveX > 0)
-            sr.flipX = true;  // moving right, flip
-        else if (moveX < 0)
-            sr.flipX = false; // moving left, default
-
         if (Input.GetMouseButtonDown(0))
             anim.SetTrigger("Attack");
 
@@ -43,6 +35,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
             anim.SetTrigger("Hurt");
 
+        // Press P to test damage
         if (Input.GetKeyDown(KeyCode.P))
             TestDamage();
     }
@@ -50,6 +43,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+        if (movement != Vector2.zero)
+        {
+            float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg - 90f;
+            rb.rotation = Mathf.LerpAngle(rb.rotation, angle, 10f * Time.fixedDeltaTime);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

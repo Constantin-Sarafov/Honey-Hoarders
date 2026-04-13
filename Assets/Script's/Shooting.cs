@@ -7,6 +7,7 @@ public class Shooting : MonoBehaviour
 
     public Transform bulletTransform;
     public Transform rotatePoint;
+    public Transform bee;
     public float timeBetweenFiring = 0.2f;
 
     private bool canFire = true;
@@ -19,6 +20,9 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
+        // Keep rotatePoint on the bee's position
+        rotatePoint.position = bee.position;
+
         Vector3 mouseScreenPos = Input.mousePosition;
         mouseScreenPos.z = Mathf.Abs(mainCam.transform.position.z);
 

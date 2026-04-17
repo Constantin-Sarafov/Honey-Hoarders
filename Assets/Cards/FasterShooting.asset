@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885ad2e2c5bb98044adedce13a7c2bcd, type: 3}
   m_Name: FasterShooting
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: 
+  cardName: Faster Stinger
   description: Faster pew pew
   artwork: {fileID: 0}
   effectType: 5

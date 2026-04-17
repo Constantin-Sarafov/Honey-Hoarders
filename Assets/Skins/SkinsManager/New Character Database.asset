@@ -17,6 +17,10 @@ MonoBehaviour:
     characterSprite: {fileID: -4656658513182322354, guid: af82457d0683caa45af771d7c8bd21fb, type: 3}
     animatorController: {fileID: 9100000, guid: 409c26461b63a9445b2b00b3fe877d96, type: 2}
     scale: {x: 4.32, y: 4.19, z: 1}
+  - characterName: Queen Bee
+    characterSprite: {fileID: -3796587054539071613, guid: d14747c730c930e4ebb2ddd1a9d1d095, type: 3}
+    animatorController: {fileID: 9100000, guid: 520a01d4819229146a95aba9afb80b5c, type: 2}
+    scale: {x: 0.2, y: 0.18, z: 1}
   - characterName: Invincibee
     characterSprite: {fileID: -4330204763214339160, guid: 614d4917212216b40ba1765bc7e8821a, type: 3}
     animatorController: {fileID: 9100000, guid: 5742b82ecb2a9694ba6a22ab4cc3d8ea, type: 2}

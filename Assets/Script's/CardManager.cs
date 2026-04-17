@@ -19,14 +19,20 @@ public class CardManager : MonoBehaviour
     [Header("Companion")]
     [SerializeField] private GameObject companionPrefab;
     [SerializeField] private Transform player;
+    [SerializeField] private Shooting shooting;
 
     private EXPManager expManager;
     private GameObject activeCompanion;
+    private HealthManager healthManager;
+    private PlayerController playerController;
     private List<CardData> usedUniqueCards = new List<CardData>();
 
     private void Awake()
     {
         expManager = GetComponent<EXPManager>();
+        healthManager = GetComponent<HealthManager>();
+        playerController = GetComponent<PlayerController>();
+
         cardSelectionPanel.SetActive(false);
 
         if (overlayImage != null)
@@ -46,7 +52,6 @@ public class CardManager : MonoBehaviour
     {
         cardSelectionPanel.SetActive(true);
 
-        // Hide all slots first to clear any leftovers
         foreach (CardUI slot in cardSlots)
             slot.gameObject.SetActive(false);
 
@@ -144,25 +149,59 @@ public class CardManager : MonoBehaviour
         switch (card.effectType)
         {
             case CardEffectType.IncreaseMaxHealth:
+                if (healthManager != null)
+                    healthManager.AddHeartUpgrade(card.value);
                 break;
+
             case CardEffectType.IncreaseDamage:
+                if (shooting != null)
+                {
+                    Debug.Log("Damage BEFORE: " + shooting.bulletDamage);
+                    shooting.bulletDamage += card.value;
+                    Debug.Log("Damage AFTER: " + shooting.bulletDamage);
+                }
+                else
+                    Debug.LogError("Shooting reference is NULL in CardManager.");
                 break;
+
             case CardEffectType.IncreaseSpeed:
+                if (playerController != null)
+                    playerController.moveSpeed += card.value;
                 break;
+
             case CardEffectType.ReduceExpRequired:
-                expManager.expToLevel = Mathf.Max(1,
-                    expManager.expToLevel - card.value);
+                expManager.expToLevel = Mathf.Max(1, expManager.expToLevel - card.value);
                 break;
+
             case CardEffectType.SummonCompanion:
                 if (activeCompanion == null && companionPrefab != null)
                 {
                     activeCompanion = Instantiate(
                         companionPrefab,
                         player.position + Vector3.left * 1.5f,
-                        Quaternion.identity);
+                        Quaternion.identity
+                    );
+
+                    // Match the player's sorting layer and order
+                    SpriteRenderer companionRenderer = activeCompanion.GetComponent<SpriteRenderer>();
+                    SpriteRenderer playerRenderer = player.GetComponent<SpriteRenderer>();
+
+                    if (companionRenderer != null && playerRenderer != null)
+                    {
+                        companionRenderer.sortingLayerID = playerRenderer.sortingLayerID;
+                        companionRenderer.sortingOrder = playerRenderer.sortingOrder;
+                    }
 
                     activeCompanion.GetComponent<CompanionAI>().Initialize(player);
                 }
+                break;
+
+            case CardEffectType.IncreaseFireRate:
+                if (shooting != null)
+                    shooting.timeBetweenFiring = Mathf.Max(0.05f,
+                        shooting.timeBetweenFiring - (card.value * 0.05f));
+                else
+                    Debug.LogError("Shooting reference is NULL in CardManager.");
                 break;
         }
 

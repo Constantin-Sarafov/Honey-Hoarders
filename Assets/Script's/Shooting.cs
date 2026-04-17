@@ -3,14 +3,13 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     private Camera mainCam;
-    private Vector3 mousePos;
-
-    public Transform bulletTransform;
-    public Transform rotatePoint;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public Transform aimPivot;
+    public Transform player;           // assign your Player/Bee object here
     public float timeBetweenFiring = 0.2f;
-
-    private bool canFire = true;
-    private float timer;
+    public int bulletDamage = 1;
+    private float timer = 0f;
 
     void Start()
     {
@@ -19,31 +18,44 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
+        timer += Time.deltaTime;
+
+        // Snap aimPivot to player position every frame
+        if (aimPivot != null && player != null)
+            aimPivot.position = player.position;
+
         Vector3 mouseScreenPos = Input.mousePosition;
         mouseScreenPos.z = Mathf.Abs(mainCam.transform.position.z);
+        Vector3 mousePos = mainCam.ScreenToWorldPoint(mouseScreenPos);
 
-        mousePos = mainCam.ScreenToWorldPoint(mouseScreenPos);
-
-        Vector2 direction = mousePos - rotatePoint.position;
-
+        Vector2 direction = mousePos - transform.position;
         float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        rotatePoint.rotation = Quaternion.Euler(0, 0, rotZ - 185f);
+        if (aimPivot != null)
+            aimPivot.rotation = Quaternion.Euler(0f, 0f, rotZ - 185f);
 
-        if (!canFire)
+        if (Input.GetMouseButton(0) && timer >= timeBetweenFiring)
         {
-            timer += Time.deltaTime;
-            if (timer > timeBetweenFiring)
-            {
-                canFire = true;
-                timer = 0;
-            }
+            timer = 0f;
+            Shoot(mousePos);
+        }
+    }
+
+    void Shoot(Vector3 mousePos)
+    {
+        if (bulletPrefab == null)
+        {
+            Debug.LogError("Shooting: bulletPrefab is not assigned!");
+            return;
         }
 
-        if (Input.GetMouseButton(0) && canFire)
+        GameObject b = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+
+        BulletScript bs = b.GetComponent<BulletScript>();
+        if (bs != null)
         {
-            canFire = false;
-            BulletPool.Instance.Get(bulletTransform.position, bulletTransform.rotation);
+            bs.SetDamage(bulletDamage);
+            bs.SetDirection((mousePos - firePoint.position).normalized);
         }
     }
 }

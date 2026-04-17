@@ -13,8 +13,11 @@ public class CompanionAI : MonoBehaviour
     [SerializeField] private float detectionRange = 6f;
     [SerializeField] private float fireRate = 1.2f;
     [SerializeField] private float projectileSpeed = 8f;
-    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float projectileDamage = 0.2f;
     [SerializeField] private int poolSize = 10;
+
+    [Header("Projectile Rotation")]
+    [SerializeField] private float bulletRotationOffset = 0f;
 
     [Header("Optional")]
     [SerializeField] private bool requireLineOfSight = false;
@@ -24,10 +27,22 @@ public class CompanionAI : MonoBehaviour
     private float fireCooldown = 0f;
     private Queue<GameObject> projectilePool = new Queue<GameObject>();
 
+    private int sortingLayerID;
+    private int sortingOrder;
+
     public void Initialize(Transform playerTransform)
     {
         player = playerTransform;
-        BuildPool();
+
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sortingLayerID = sr.sortingLayerID;
+            sortingOrder = sr.sortingOrder;
+        }
+
+        if (projectilePool.Count == 0)
+            BuildPool();
     }
 
     private void BuildPool()
@@ -35,6 +50,7 @@ public class CompanionAI : MonoBehaviour
         for (int i = 0; i < poolSize; i++)
         {
             GameObject b = Instantiate(projectilePrefab);
+            FixBulletSorting(b);
             b.SetActive(false);
             projectilePool.Enqueue(b);
         }
@@ -47,12 +63,28 @@ public class CompanionAI : MonoBehaviour
         if (projectilePool.Count > 0)
             b = projectilePool.Dequeue();
         else
+        {
             b = Instantiate(projectilePrefab);
+            FixBulletSorting(b);
+        }
 
         b.transform.position = position;
         b.transform.rotation = rotation;
         b.SetActive(true);
         return b;
+    }
+
+    private void FixBulletSorting(GameObject bullet)
+    {
+        SpriteRenderer sr = bullet.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.sortingLayerID = sortingLayerID;
+            sr.sortingOrder = sortingOrder + 1;
+        }
+
+        // Fix physics layer so bullets can hit enemies
+        bullet.layer = 0;
     }
 
     public void ReturnToPool(GameObject b)
@@ -108,36 +140,28 @@ public class CompanionAI : MonoBehaviour
 
     private Transform GetNearestEnemy()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(
-            transform.position,
-            detectionRange,
-            enemyLayer
-        );
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRange);
 
         Transform nearest = null;
         float closestDist = Mathf.Infinity;
 
         foreach (Collider2D hit in hits)
         {
-            if (hit.transform == player)
+            if (!hit.CompareTag("Enemy"))
                 continue;
 
             if (requireLineOfSight)
             {
                 Vector2 direction = (hit.transform.position - transform.position).normalized;
+                float distanceToTarget = Vector2.Distance(transform.position, hit.transform.position);
 
-                RaycastHit2D ray = Physics2D.Raycast(
-                    transform.position,
-                    direction,
-                    detectionRange,
-                    enemyLayer
-                );
+                RaycastHit2D ray = Physics2D.Raycast(transform.position, direction, distanceToTarget);
 
-                if (ray.collider == null || ray.collider.transform != hit.transform)
+                if (ray.collider != null && ray.collider.transform != hit.transform)
                     continue;
             }
 
-            float d = Vector3.Distance(transform.position, hit.transform.position);
+            float d = Vector2.Distance(transform.position, hit.transform.position);
 
             if (d < closestDist)
             {
@@ -158,16 +182,16 @@ public class CompanionAI : MonoBehaviour
         else
             transform.localScale = new Vector3(1, 1, 1);
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + bulletRotationOffset;
 
         GameObject proj = GetFromPool(
             transform.position,
-            Quaternion.Euler(0, 0, angle)
+            Quaternion.Euler(0f, 0f, angle)
         );
 
         CompanionBullet bullet = proj.GetComponent<CompanionBullet>();
         if (bullet != null)
-            bullet.Init(this);
+            bullet.Init(this, projectileDamage);
 
         Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
         if (rb != null)

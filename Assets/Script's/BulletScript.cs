@@ -2,44 +2,47 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    private Camera mainCam;
-    private Rigidbody2D rb;
-
     public float force = 10f;
     public float lifetime = 3f;
-    private float timer;
 
-    private void Awake()
-    {
-        mainCam = Camera.main;
-        rb = GetComponent<Rigidbody2D>();
+    private Vector2 direction;
+    private bool directionSet = false;
+
+    private int damage = 1;
+
+   public void SetDamage(int dmg)
+   {
+        damage = dmg;
+        Debug.Log("Bullet damage set to: " + damage);
     }
 
-    private void OnEnable()
+    public int GetDamage()
     {
-        // Reset lifetime timer each time bullet is reused
-        timer = 0f;
-
-        Vector3 mouseScreenPos = Input.mousePosition;
-        mouseScreenPos.z = Mathf.Abs(mainCam.transform.position.z);
-
-        Vector3 mousePos = mainCam.ScreenToWorldPoint(mouseScreenPos);
-        Vector3 direction = mousePos - transform.position;
-
-        rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
+        return damage;
     }
 
-    private void Update()
+    public void SetDirection(Vector2 dir)
     {
-        // Return to pool after lifetime instead of Destroy
-        timer += Time.deltaTime;
-        if (timer >= lifetime)
-            BulletPool.Instance.ReturnToPool(gameObject);
+        direction = dir.normalized;
+        directionSet = true;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 180f;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        Destroy(gameObject, lifetime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void Update()
     {
-        // Return to pool on hit instead of Destroy
-        BulletPool.Instance.ReturnToPool(gameObject);
+        if (!directionSet) return;
+        transform.Translate(direction * force * Time.deltaTime, Space.World);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

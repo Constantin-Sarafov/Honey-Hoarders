@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
     
     [Header("References")]
     public GameObject enemyType1Prefab;
+    public GameObject enemyType1Wave3Prefab;
+    public GameObject enemyType1Wave6Prefab;
     public GameObject enemyType2Prefab;
     public GameObject player;
 
@@ -27,17 +29,12 @@ public class EnemySpawner : MonoBehaviour
 
     private bool waitingForNextWave = false;
     private float waveTimer = 0f;
-
     private float timer = 0f;
-
     private int currentWave = 1;
     private int enemiesToSpawnThisWave;
     private int enemiesSpawnedThisWave;
     private int enemiesAlive;
-
     private bool waveInProgress = false;
-
-    
 
     void Start()
     {
@@ -48,7 +45,6 @@ public class EnemySpawner : MonoBehaviour
     {
         if (player == null) return;
 
-        // Waiting phase between waves
         if (waitingForNextWave)
         {
             waveTimer -= Time.deltaTime;
@@ -67,14 +63,12 @@ public class EnemySpawner : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        // Spawn enemies one by one during the wave
         if (enemiesSpawnedThisWave < enemiesToSpawnThisWave && timer >= spawnInterval)
         {
             timer = 0f;
             SpawnSingleEnemy();
         }
 
-        // If all enemies for this wave were spawned and all are dead, start break
         if (enemiesSpawnedThisWave >= enemiesToSpawnThisWave && enemiesAlive <= 0)
         {
             waveInProgress = false;
@@ -93,7 +87,6 @@ public class EnemySpawner : MonoBehaviour
 
         if (waveTextUI != null)
             waveTextUI.ShowWave(currentWave);
-
     }
 
     void SpawnSingleEnemy()
@@ -132,9 +125,18 @@ public class EnemySpawner : MonoBehaviour
         float randomValue = Random.Range(0f, totalChance);
 
         if (randomValue < enemyType1Chance)
-            return enemyType1Prefab;
+            return GetCurrentEnemyType1Prefab();
         else
             return enemyType2Prefab;
+    }
+
+    GameObject GetCurrentEnemyType1Prefab()
+    {
+        if (currentWave > 5 && enemyType1Wave6Prefab != null)
+            return enemyType1Wave6Prefab;
+        if (currentWave > 2 && enemyType1Wave3Prefab != null)
+            return enemyType1Wave3Prefab;
+        return enemyType1Prefab;
     }
 
     public void OnEnemyKilled()

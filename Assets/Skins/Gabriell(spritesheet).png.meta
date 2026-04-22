@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: af82457d0683caa45af771d7c8bd21fb
+guid: 661650111580a484e9b655a23a3d48c4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4656658513182322354
-    second: bee_0
+      213: 8814823385067121205
+    second: Gabriell(spritesheet)_0
+  - first:
+      213: -5851315871815842599
+    second: Gabriell(spritesheet)_1
+  - first:
+      213: -8127203768108533574
+    second: Gabriell(spritesheet)_2
+  - first:
+      213: 5703454890122004588
+    second: Gabriell(spritesheet)_3
+  - first:
+      213: 5191618007317472165
+    second: Gabriell(spritesheet)_4
+  - first:
+      213: -7016211367242187632
+    second: Gabriell(spritesheet)_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 15
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,23 +128,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bee_0
+      name: Gabriell(spritesheet)_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 24
-        height: 28
+        y: 471
+        width: 395
+        height: 362
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e41187911c9306fb0800000000000000
-      internalID: -4656658513182322354
+      spriteID: 9d4cfc75733fbcea0800000000000000
+      internalID: -5851315871815842599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gabriell(spritesheet)_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 390
+        height: 363
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a3edaf32155c0840800000000000000
+      internalID: 5191618007317472165
       vertices: []
       indices: 
       edges: []
@@ -138,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f148133318c53c14db73a3f439265aec
     internalID: 0
     vertices: []
     indices: 
@@ -146,9 +183,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      bee_0: -4656658513182322354
+      Gabriell(spritesheet)_0: 8814823385067121205
+      Gabriell(spritesheet)_1: -5851315871815842599
+      Gabriell(spritesheet)_2: -8127203768108533574
+      Gabriell(spritesheet)_3: 5703454890122004588
+      Gabriell(spritesheet)_4: 5191618007317472165
+      Gabriell(spritesheet)_5: -7016211367242187632
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

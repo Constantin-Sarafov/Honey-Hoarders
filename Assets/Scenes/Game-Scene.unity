@@ -429,8 +429,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000007622, y: 30.25}
-  m_SizeDelta: {x: 169.83, y: 87.62}
+  m_AnchoredPosition: {x: 12.6, y: 30.25}
+  m_SizeDelta: {x: 106.3, y: 75.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &109908233
 MonoBehaviour:
@@ -1568,7 +1568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a049ec005d7c4f8dffc2a150172bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
-  uiAudio: {fileID: 814724898}
 --- !u!1 &259122110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,7 +1603,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.155, y: 27.2}
-  m_SizeDelta: {x: 156.65, y: 89.36}
+  m_SizeDelta: {x: 106.3, y: 75.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &259122112
 MonoBehaviour:
@@ -1902,7 +1901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a049ec005d7c4f8dffc2a150172bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
-  uiAudio: {fileID: 814724898}
 --- !u!1 &409273695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,6 +1932,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   waveTextUI: {fileID: 996582907}
   enemyType1Prefab: {fileID: 4936702342332607233, guid: 50d85a2b7efc7774386110f7f7789b23, type: 3}
+  enemyType1Wave3Prefab: {fileID: 4936702342332607233, guid: deb56bfd9e85ab743b372de0fc3fbfcd, type: 3}
+  enemyType1Wave6Prefab: {fileID: 4936702342332607233, guid: eed5ff11387d56a43a8b880eef57f392, type: 3}
   enemyType2Prefab: {fileID: 3979602994439377032, guid: 3772ec9a6827ae440924bd38b0d381b5, type: 3}
   player: {fileID: 4096621757677789400}
   spawnRadius: 20
@@ -3265,7 +3265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a049ec005d7c4f8dffc2a150172bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
-  uiAudio: {fileID: 814724898}
 --- !u!1 &814724894
 GameObject:
   m_ObjectHideFlags: 0
@@ -5014,8 +5013,8 @@ MonoBehaviour:
   pauseButton: {fileID: 1868351394}
   pausePanel: {fileID: 1923213295}
   pauseCanvasGroup: {fileID: 1923213299}
-  uiAudio: {fileID: 0}
   gameOverManager: {fileID: 1338102318}
+  transitionClickDelay: 0.1
 --- !u!114 &1338102318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5030,6 +5029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameOverManager
   gameOverPanel: {fileID: 1046656340}
   gameOverCanvasGroup: {fileID: 1046656341}
+  transitionClickDelay: 0.1
 --- !u!1 &1339761240
 GameObject:
   m_ObjectHideFlags: 0
@@ -5764,8 +5764,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000012636, y: 32.2}
-  m_SizeDelta: {x: 161.23, y: 92.14}
+  m_AnchoredPosition: {x: -2.09, y: 22.64}
+  m_SizeDelta: {x: 106.3, y: 75.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1545521669
 MonoBehaviour:
@@ -6311,7 +6311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a049ec005d7c4f8dffc2a150172bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
-  uiAudio: {fileID: 814724898}
 --- !u!1 &1647042972
 GameObject:
   m_ObjectHideFlags: 0
@@ -7279,7 +7278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a049ec005d7c4f8dffc2a150172bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
-  uiAudio: {fileID: 814724898}
 --- !u!1 &1883642469
 GameObject:
   m_ObjectHideFlags: 0
@@ -8141,7 +8139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a049ec005d7c4f8dffc2a150172bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
-  uiAudio: {fileID: 814724898}
 --- !u!1001 &4096621757677789399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8363,7 +8360,6 @@ MonoBehaviour:
   invulnerabilityTime: 1
   moveAudio: {fileID: 4096621757677789417}
   fadeSpeed: 10
-  maxVolume: 0.07
   magnetActive: 0
   magnetRadius: 5
   magnetPullSpeed: 8

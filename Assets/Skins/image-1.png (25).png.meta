@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cd5cf9ab050131d4798b5691b60265e5
+guid: c937027f27737a044825ab92266cf2c3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 880906846434851621
-    second: Kratos2_0
+      213: 5212130782807616851
+    second: image-1.png (25)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 150
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kratos2_0
+      name: image-1.png (25)_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 276
-        height: 276
+        x: 78
+        y: 46
+        width: 161
+        height: 167
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 52b75fd0c1c993c00800000000000000
-      internalID: 880906846434851621
+      spriteID: 35d6028f455355840800000000000000
+      internalID: 5212130782807616851
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Kratos2_0: 880906846434851621
+      image-1.png (25)_0: 5212130782807616851
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDatabase
   character:
   - characterName: Bee
-    characterSprite: {fileID: -4656658513182322354, guid: af82457d0683caa45af771d7c8bd21fb, type: 3}
+    characterSprite: {fileID: 5212130782807616851, guid: c937027f27737a044825ab92266cf2c3, type: 3}
     animatorController: {fileID: 9100000, guid: 409c26461b63a9445b2b00b3fe877d96, type: 2}
     scale: {x: 1, y: 1, z: 1}
   - characterName: Queen Bee
@@ -30,10 +30,14 @@ MonoBehaviour:
     animatorController: {fileID: 9100000, guid: 2f9e75fac9054c9489699457eb9de56c, type: 2}
     scale: {x: 0.1066667, y: 0.1066667, z: 1}
   - characterName: Robot
-    characterSprite: {fileID: -1002163470196486544, guid: 53e5816be5a4e1140810b5803158a83d, type: 3}
+    characterSprite: {fileID: 3458687716243423330, guid: 3b8e95495ed391b499db3009cbfb12e7, type: 3}
     animatorController: {fileID: 9100000, guid: 5460ce1d913acb04fa11cab0ed9a3882, type: 2}
     scale: {x: 0.0966667, y: 0.0966667, z: 1}
   - characterName: God of Honey
     characterSprite: {fileID: 880906846434851621, guid: cd5cf9ab050131d4798b5691b60265e5, type: 3}
     animatorController: {fileID: 9100000, guid: cfa67aee3620cc549a1a66d3338b40b1, type: 2}
+    scale: {x: 0.0966667, y: 0.0966667, z: 1}
+  - characterName: Gabriell Archbee
+    characterSprite: {fileID: 21300000, guid: e79edcfeef57bb344bf21e5f4fe5494c, type: 3}
+    animatorController: {fileID: 9100000, guid: de8ec854848ed9f4a8d411c43703e07f, type: 2}
     scale: {x: 0.0966667, y: 0.0966667, z: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Robot bee
   description: Summon a companion for the bee
-  artwork: {fileID: 0}
+  artwork: {fileID: -5251300639073707015, guid: bc155ed157e55f74994ec2ab2045447b, type: 3}
   effectType: 4
   value: 2
   isUnique: 1

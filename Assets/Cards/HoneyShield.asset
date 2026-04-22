@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Honey Shield
   description: 'Has a small chance of blocking any kind of incoming damage '
-  artwork: {fileID: 0}
+  artwork: {fileID: 2118185445308986634, guid: 4ef0dac80d0f22d4eb3e495b2810a286, type: 3}
   effectType: 8
   value: 5
-  isUnique: 0
+  isUnique: 1

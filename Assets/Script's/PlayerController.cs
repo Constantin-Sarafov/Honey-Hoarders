@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Audio")]
     [SerializeField] private AudioSource moveAudio;
     [SerializeField] private float fadeSpeed = 5f;
-    [SerializeField] private float maxVolume = 0.07f;
 
     [Header("EXP Magnet")]
     public bool magnetActive = false;

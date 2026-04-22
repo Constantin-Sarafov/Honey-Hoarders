@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Honey-Nade
   description: Three grenades, that you can throw at enemies by pressing E.
-  artwork: {fileID: 0}
+  artwork: {fileID: -947249982483344405, guid: 633ea9d2ddd511340b6c99476f6b9c78, type: 3}
   effectType: 7
   value: 5
   isUnique: 0

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: cd5cf9ab050131d4798b5691b60265e5
+guid: e79edcfeef57bb344bf21e5f4fe5494c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 880906846434851621
-    second: Kratos2_0
+      213: -7849368386695224681
+    second: Gabriell_0
+  - first:
+      213: 8545211817442852546
+    second: Gabriell_1
+  - first:
+      213: -2254316666683886553
+    second: Gabriell_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kratos2_0
+      name: Gabriell_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 276
-        height: 276
+        y: 219
+        width: 43
+        height: 46
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 52b75fd0c1c993c00800000000000000
-      internalID: 880906846434851621
+      spriteID: 792a9df3a01711390800000000000000
+      internalID: -7849368386695224681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gabriell_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 0
+        width: 257
+        height: 323
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ceb62d9fd0b69670800000000000000
+      internalID: 8545211817442852546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gabriell_2
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 89
+        width: 145
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 724701f7fee07b0e0800000000000000
+      internalID: -2254316666683886553
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Kratos2_0: 880906846434851621
+      Gabriell_0: -7849368386695224681
+      Gabriell_1: 8545211817442852546
+      Gabriell_2: -2254316666683886553
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

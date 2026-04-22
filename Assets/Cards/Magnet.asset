@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: EXP Magnet
   description: Pulls EXP to the player
-  artwork: {fileID: 0}
+  artwork: {fileID: -1665959740343964389, guid: cb8806824eb78e24b8bb10935758a54c, type: 3}
   effectType: 6
   value: 5
   isUnique: 0

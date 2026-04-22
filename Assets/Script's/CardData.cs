@@ -18,4 +18,8 @@ public enum CardEffectType
     IncreaseSpeed,
     ReduceExpRequired,
     SummonCompanion,
+    IncreaseFireRate,
+    ExpMagnet,
+    ThrowGrenade,
+    HoneyShield,
 }

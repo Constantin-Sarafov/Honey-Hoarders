@@ -1,6 +1,6 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
@@ -19,75 +19,142 @@ public class CardManager : MonoBehaviour
     [Header("Companion")]
     [SerializeField] private GameObject companionPrefab;
     [SerializeField] private Transform player;
+    [SerializeField] private Shooting shooting;
 
-    private EXPManager expManager;
+    [Header("Upgrade Values")]
+    [SerializeField] private int damageUpgradeAmount = 1;
+    [SerializeField] private float speedUpgradeAmount = 0.1f;
+    [SerializeField] private float fireRateUpgradeAmount = 0.05f;
+    [SerializeField] private float minimumTimeBetweenShots = 0.05f;
+
+    [Header("Magnet Upgrade Values")]
+    [SerializeField] private float magnetRadiusUpgradeAmount = 2f;
+    [SerializeField] private float magnetSpeedUpgradeAmount = 2f;
+
+    [Header("Honey Shield Values")]
+    [SerializeField] private float honeyShieldInitialPercent = 50f;
+
+    [Header("Audio")]
+    [SerializeField, Range(0f, 1f)] private float cardScreenVolume = 0.25f;
+
+    [Header("Script References")]
+    [SerializeField] private EXPManager expManager;
+    [SerializeField] private HealthManager healthManager;
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private HoneyShield honeyShield;
+
+    private float previousAudioVolume = 1f;
+    private bool cardAudioDimmed = false;
     private GameObject activeCompanion;
     private List<CardData> usedUniqueCards = new List<CardData>();
 
+    private bool isShowingCards = false;
+    private bool isHiding = false;
+    private bool cardAlreadyChosen = false;
+    private int queuedLevelUps = 0;
+
+    private void OnDisable()
+    {
+        RestoreAudioAfterCardScreen();
+    }
+
     private void Awake()
     {
-        expManager = GetComponent<EXPManager>();
         cardSelectionPanel.SetActive(false);
 
         if (overlayImage != null)
         {
             Color c = overlayImage.color;
-            c.a = 0;
+            c.a = 0f;
             overlayImage.color = c;
         }
     }
 
+    private void LowerAudioForCardScreen()
+    {
+        if (cardAudioDimmed) return;
+        previousAudioVolume = AudioListener.volume;
+        AudioListener.volume = cardScreenVolume;
+        cardAudioDimmed = true;
+    }
+
+    private void RestoreAudioAfterCardScreen()
+    {
+        if (!cardAudioDimmed) return;
+        AudioListener.volume = previousAudioVolume;
+        cardAudioDimmed = false;
+    }
+
     public void OnLevelUp()
     {
-        StartCoroutine(ShowCardsRoutine());
+        queuedLevelUps++;
+
+        if (!isShowingCards)
+            StartCoroutine(ShowCardsRoutine());
     }
 
     private IEnumerator ShowCardsRoutine()
     {
-        cardSelectionPanel.SetActive(true);
+        isShowingCards = true;
 
-        // Hide all slots first to clear any leftovers
-        foreach (CardUI slot in cardSlots)
-            slot.gameObject.SetActive(false);
-
-        List<CardData> offered = GetRandomCards(3);
-
-        for (int i = 0; i < cardSlots.Length; i++)
+        while (queuedLevelUps > 0)
         {
-            if (i < offered.Count)
+            yield return new WaitWhile(() => isHiding);
+
+            queuedLevelUps--;
+            cardAlreadyChosen = false;
+
+            cardSelectionPanel.SetActive(true);
+
+            foreach (CardUI slot in cardSlots)
+                slot.gameObject.SetActive(false);
+
+            List<CardData> offered = GetRandomCards(3);
+
+            for (int i = 0; i < cardSlots.Length; i++)
             {
-                cardSlots[i].gameObject.SetActive(true);
-                cardSlots[i].Setup(offered[i], this);
+                if (i < offered.Count)
+                {
+                    cardSlots[i].gameObject.SetActive(true);
+                    cardSlots[i].Setup(offered[i], this);
+                }
+                else
+                {
+                    cardSlots[i].gameObject.SetActive(false);
+                }
             }
-            else
+
+            if (PauseManager.Instance != null)
+                PauseManager.Instance.PauseFromSource(PauseManager.PauseSource.CardSelection);
+
+            LowerAudioForCardScreen();
+
+            float elapsed = 0f;
+            while (elapsed < fadeDuration)
             {
-                cardSlots[i].gameObject.SetActive(false);
+                elapsed += Time.unscaledDeltaTime;
+                float t = elapsed / fadeDuration;
+
+                if (overlayImage != null)
+                {
+                    Color c = overlayImage.color;
+                    c.a = Mathf.Lerp(0f, 0.75f, t);
+                    overlayImage.color = c;
+                }
+
+                yield return null;
             }
+
+            yield return new WaitUntil(() => !cardSelectionPanel.activeSelf);
         }
 
-        float elapsed = 0f;
-        while (elapsed < fadeDuration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float t = elapsed / fadeDuration;
-
-            if (overlayImage != null)
-            {
-                Color c = overlayImage.color;
-                c.a = Mathf.Lerp(0, 0.75f, t);
-                overlayImage.color = c;
-            }
-
-            Time.timeScale = Mathf.Lerp(1f, 0f, t);
-            yield return null;
-        }
-
-        Time.timeScale = 0f;
+        isShowingCards = false;
     }
 
     private List<CardData> GetRandomCards(int count)
     {
         List<CardData> pool = new List<CardData>();
+
         foreach (CardData card in allCards)
         {
             if (!usedUniqueCards.Contains(card))
@@ -109,6 +176,10 @@ public class CardManager : MonoBehaviour
 
     public void SelectCard(CardData card)
     {
+        if (cardAlreadyChosen) return;
+
+        cardAlreadyChosen = true;
+
         if (card.isUnique)
             usedUniqueCards.Add(card);
 
@@ -117,6 +188,8 @@ public class CardManager : MonoBehaviour
 
     private IEnumerator HideCardsRoutine(CardData card)
     {
+        isHiding = true;
+
         float elapsed = 0f;
         while (elapsed < fadeDuration * 0.5f)
         {
@@ -130,13 +203,19 @@ public class CardManager : MonoBehaviour
                 overlayImage.color = c;
             }
 
-            Time.timeScale = Mathf.Lerp(0f, 1f, t);
             yield return null;
         }
 
-        Time.timeScale = 1f;
         cardSelectionPanel.SetActive(false);
+
+        RestoreAudioAfterCardScreen();
+
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.ResumeFromSource(PauseManager.PauseSource.CardSelection);
+
         ApplyCardEffect(card);
+
+        isHiding = false;
     }
 
     private void ApplyCardEffect(CardData card)
@@ -144,28 +223,77 @@ public class CardManager : MonoBehaviour
         switch (card.effectType)
         {
             case CardEffectType.IncreaseMaxHealth:
+                if (healthManager != null)
+                    healthManager.AddHeartUpgrade(card.value);
                 break;
+
             case CardEffectType.IncreaseDamage:
+                if (shooting != null)
+                    shooting.SetBulletDamage(shooting.GetBulletDamage() + damageUpgradeAmount);
                 break;
+
             case CardEffectType.IncreaseSpeed:
+                if (playerController != null)
+                    playerController.moveSpeed += speedUpgradeAmount;
                 break;
+
             case CardEffectType.ReduceExpRequired:
-                expManager.expToLevel = Mathf.Max(1,
-                    expManager.expToLevel - card.value);
+                if (expManager != null)
+                    expManager.expToLevel = Mathf.Max(1, expManager.expToLevel - card.value);
                 break;
+
             case CardEffectType.SummonCompanion:
                 if (activeCompanion == null && companionPrefab != null)
                 {
                     activeCompanion = Instantiate(
                         companionPrefab,
                         player.position + Vector3.left * 1.5f,
-                        Quaternion.identity);
+                        Quaternion.identity
+                    );
 
-                    activeCompanion.GetComponent<CompanionAI>().Initialize(player);
+                    SpriteRenderer companionRenderer = activeCompanion.GetComponent<SpriteRenderer>();
+                    SpriteRenderer playerRenderer = player.GetComponentInChildren<SpriteRenderer>();
+
+                    if (companionRenderer != null && playerRenderer != null)
+                    {
+                        companionRenderer.sortingLayerID = playerRenderer.sortingLayerID;
+                        companionRenderer.sortingOrder = playerRenderer.sortingOrder;
+                    }
+
+                    CompanionAI companionAI = activeCompanion.GetComponent<CompanionAI>();
+                    if (companionAI != null)
+                        companionAI.Initialize(player);
+                }
+                break;
+
+            case CardEffectType.IncreaseFireRate:
+                if (shooting != null)
+                {
+                    float newTime = shooting.GetTimeBetweenFiring() - fireRateUpgradeAmount;
+                    shooting.SetTimeBetweenFiring(Mathf.Max(minimumTimeBetweenShots, newTime));
+                }
+                break;
+
+            case CardEffectType.HoneyShield:
+                if (honeyShield != null)
+                    honeyShield.InitializeShield(honeyShieldInitialPercent);
+                else
+                    Debug.LogError("CardManager: HoneyShield reference is missing!");
+                break;
+
+            case CardEffectType.ExpMagnet:
+                if (playerController != null)
+                {
+                    if (!playerController.magnetActive)
+                        playerController.ActivateMagnet(card.value, magnetSpeedUpgradeAmount);
+                    else
+                        playerController.UpgradeMagnet(magnetRadiusUpgradeAmount, magnetSpeedUpgradeAmount);
+                }
+                else
+                {
+                    Debug.LogError("CardManager: PlayerController reference is missing!");
                 }
                 break;
         }
-
-        Debug.Log($"Applied: {card.cardName}");
     }
 }

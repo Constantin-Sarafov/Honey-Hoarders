@@ -13,8 +13,17 @@ public class CompanionAI : MonoBehaviour
     [SerializeField] private float detectionRange = 6f;
     [SerializeField] private float fireRate = 1.2f;
     [SerializeField] private float projectileSpeed = 8f;
-    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float projectileDamage = 0.2f;
     [SerializeField] private int poolSize = 10;
+
+    [Header("Projectile Rotation")]
+    [SerializeField] private float bulletRotationOffset = 0f;
+    // Use this if your bullet sprite does not face right by default.
+    // Example:
+    // 0 = sprite faces right
+    // 90 = sprite faces up
+    // 180 = sprite faces left
+    // -90 = sprite faces down
 
     [Header("Optional")]
     [SerializeField] private bool requireLineOfSight = false;
@@ -27,7 +36,9 @@ public class CompanionAI : MonoBehaviour
     public void Initialize(Transform playerTransform)
     {
         player = playerTransform;
-        BuildPool();
+
+        if (projectilePool.Count == 0)
+            BuildPool();
     }
 
     private void BuildPool()
@@ -108,36 +119,28 @@ public class CompanionAI : MonoBehaviour
 
     private Transform GetNearestEnemy()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(
-            transform.position,
-            detectionRange,
-            enemyLayer
-        );
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRange);
 
         Transform nearest = null;
         float closestDist = Mathf.Infinity;
 
         foreach (Collider2D hit in hits)
         {
-            if (hit.transform == player)
+            if (!hit.CompareTag("Enemy"))
                 continue;
 
             if (requireLineOfSight)
             {
                 Vector2 direction = (hit.transform.position - transform.position).normalized;
+                float distanceToTarget = Vector2.Distance(transform.position, hit.transform.position);
 
-                RaycastHit2D ray = Physics2D.Raycast(
-                    transform.position,
-                    direction,
-                    detectionRange,
-                    enemyLayer
-                );
+                RaycastHit2D ray = Physics2D.Raycast(transform.position, direction, distanceToTarget);
 
-                if (ray.collider == null || ray.collider.transform != hit.transform)
+                if (ray.collider != null && ray.collider.transform != hit.transform)
                     continue;
             }
 
-            float d = Vector3.Distance(transform.position, hit.transform.position);
+            float d = Vector2.Distance(transform.position, hit.transform.position);
 
             if (d < closestDist)
             {
@@ -158,16 +161,16 @@ public class CompanionAI : MonoBehaviour
         else
             transform.localScale = new Vector3(1, 1, 1);
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + bulletRotationOffset;
 
         GameObject proj = GetFromPool(
             transform.position,
-            Quaternion.Euler(0, 0, angle)
+            Quaternion.Euler(0f, 0f, angle)
         );
 
         CompanionBullet bullet = proj.GetComponent<CompanionBullet>();
         if (bullet != null)
-            bullet.Init(this);
+            bullet.Init(this, projectileDamage);
 
         Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
         if (rb != null)

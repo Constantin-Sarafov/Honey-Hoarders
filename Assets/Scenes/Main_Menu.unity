@@ -634,8 +634,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556351873}
   m_CullTransparentMesh: 1
-<<<<<<< Updated upstream
-=======
 --- !u!1 &814724894
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +778,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonAudio
   audioSource: {fileID: 814724896}
   clickSound: {fileID: 8300000, guid: 1fe19976e23e01e4694bfbcc09593837, type: 3}
->>>>>>> Stashed changes
 --- !u!1 &848490853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,8 +1133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   scrollSpeedX: -0.03
   scrollSpeedY: -0.03
-<<<<<<< Updated upstream
-=======
 --- !u!1 &1255541483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,7 +1280,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> Stashed changes
 --- !u!1 &1301267622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,8 +1943,5 @@ SceneRoots:
   - {fileID: 2040624794}
   - {fileID: 1178503538}
   - {fileID: 202612425}
-<<<<<<< Updated upstream
-=======
   - {fileID: 814724897}
   - {fileID: 1255541486}
->>>>>>> Stashed changes

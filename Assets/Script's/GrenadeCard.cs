@@ -10,11 +10,7 @@ public class GrenadeCard : MonoBehaviour
     public int stingerDamage = 2;
     public float arcHeight = 2f;
     public float travelTime = 0.8f;
-<<<<<<< Updated upstream
-    public KeyCode throwKey = KeyCode.Y;
-=======
     public KeyCode throwKey = KeyCode.Space;
->>>>>>> Stashed changes
 
     private Camera mainCam;
 

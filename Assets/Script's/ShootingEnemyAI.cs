@@ -179,15 +179,8 @@ public class ShootingEnemyAI : MonoBehaviour
 
     void Die()
     {
-<<<<<<< Updated upstream
-        // Add score
         ScoreManager.AddScore(scoreValue);
 
-        // Drop EXP
-=======
-        ScoreManager.AddScore(scoreValue);
-
->>>>>>> Stashed changes
         if (expPickupPrefab != null)
         {
             GameObject pickup = Instantiate(expPickupPrefab, transform.position, Quaternion.identity);
@@ -196,17 +189,9 @@ public class ShootingEnemyAI : MonoBehaviour
                 ep.expAmount = expDropAmount;
         }
 
-<<<<<<< Updated upstream
-        // Notify spawner
         if (spawner != null)
             spawner.OnEnemyKilled();
 
-        // Destroy enemy
-=======
-        if (spawner != null)
-            spawner.OnEnemyKilled();
-
->>>>>>> Stashed changes
         Destroy(gameObject);
     }
 

@@ -22,12 +22,9 @@ public class EnemyAI : MonoBehaviour
     public GameObject expPickupPrefab;
     public int expDropAmount = 2;
 
-<<<<<<< Updated upstream
-=======
     [Header("Score")]
     public int scoreValue = 30;
 
->>>>>>> Stashed changes
     [Header("Enemy Overlap")]
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float overlapCheckRadius = 1f;
@@ -147,11 +144,7 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
-<<<<<<< Updated upstream
-        ScoreManager.AddScore(30);
-=======
         ScoreManager.AddScore(scoreValue);
->>>>>>> Stashed changes
 
         if (expPickupPrefab != null)
         {

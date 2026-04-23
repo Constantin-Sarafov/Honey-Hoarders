@@ -1,8 +1,5 @@
 using UnityEngine;
-<<<<<<< Updated upstream
-=======
 using UnityEngine.SceneManagement;
->>>>>>> Stashed changes
 
 public class ScoreManager : MonoBehaviour
 {
@@ -19,11 +16,8 @@ public class ScoreManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-<<<<<<< Updated upstream
-=======
 
             SceneManager.sceneLoaded += OnSceneLoaded;
->>>>>>> Stashed changes
         }
         else
         {
@@ -33,8 +27,6 @@ public class ScoreManager : MonoBehaviour
         HighScore = PlayerPrefs.GetInt("HighScore", 0);
     }
 
-<<<<<<< Updated upstream
-=======
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ResetCurrentScore();
@@ -45,7 +37,6 @@ public class ScoreManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
->>>>>>> Stashed changes
     public static void AddScore(int points)
     {
         CurrentScore += points;

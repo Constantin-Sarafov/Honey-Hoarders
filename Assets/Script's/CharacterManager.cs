@@ -14,15 +14,11 @@ public class CharacterManager : MonoBehaviour
     public GameObject equippedBadge;
     public GameObject equippedBadgeImage;
 
-<<<<<<< Updated upstream
-    private int selectedOption = 0;
-=======
     [Header("UI Audio")]
     [SerializeField] private float transitionClickDelay = 0.1f;
 
     private int selectedOption = 0;
     private bool isTransitioning = false;
->>>>>>> Stashed changes
 
     void Start()
     {
@@ -32,10 +28,6 @@ public class CharacterManager : MonoBehaviour
 
     public void NextOption()
     {
-<<<<<<< Updated upstream
-        selectedOption++;
-        if (selectedOption >= characterDB.CharacterCount) selectedOption = 0;
-=======
         if (isTransitioning)
             return;
 
@@ -45,16 +37,11 @@ public class CharacterManager : MonoBehaviour
         if (selectedOption >= characterDB.CharacterCount)
             selectedOption = 0;
 
->>>>>>> Stashed changes
         UpdateCharacter(selectedOption);
     }
 
     public void BackOption()
     {
-<<<<<<< Updated upstream
-        selectedOption--;
-        if (selectedOption < 0) selectedOption = characterDB.CharacterCount - 1;
-=======
         if (isTransitioning)
             return;
 
@@ -64,7 +51,6 @@ public class CharacterManager : MonoBehaviour
         if (selectedOption < 0)
             selectedOption = characterDB.CharacterCount - 1;
 
->>>>>>> Stashed changes
         UpdateCharacter(selectedOption);
     }
 
@@ -87,14 +73,11 @@ public class CharacterManager : MonoBehaviour
 
     public void EquipSelection()
     {
-<<<<<<< Updated upstream
-=======
         if (isTransitioning)
             return;
 
         PlayUIClick();
 
->>>>>>> Stashed changes
         PlayerPrefs.SetInt("SelectedCharacter", selectedOption);
         PlayerPrefs.Save();
         UpdateCharacter(selectedOption);
@@ -102,22 +85,14 @@ public class CharacterManager : MonoBehaviour
 
     public void PlayGame()
     {
-<<<<<<< Updated upstream
-        SceneManager.LoadScene("Game-Scene");
-=======
         if (isTransitioning)
             return;
 
         StartCoroutine(PlayGameRoutine());
->>>>>>> Stashed changes
     }
 
     public void GoToMainMenu()
     {
-<<<<<<< Updated upstream
-        SceneManager.LoadScene("Main_Menu");
-    }
-=======
         if (isTransitioning)
             return;
 
@@ -149,5 +124,4 @@ public class CharacterManager : MonoBehaviour
         if (UIButtonAudio.Instance != null)
             UIButtonAudio.Instance.PlayClick();
     }
->>>>>>> Stashed changes
 }

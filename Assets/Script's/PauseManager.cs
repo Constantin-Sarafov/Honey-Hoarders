@@ -115,10 +115,7 @@ public class PauseManager : MonoBehaviour
 
         Time.timeScale = paused ? 0f : 1f;
 
-<<<<<<< Updated upstream
-=======
         // Only fully pause audio when the actual pause menu is open.
->>>>>>> Stashed changes
         bool shouldPauseAudio = HasPauseSource(PauseSource.PauseMenu);
         AudioListener.pause = shouldPauseAudio;
 
@@ -202,15 +199,10 @@ public class PauseManager : MonoBehaviour
     private IEnumerator RestartGameRoutine()
     {
         isTransitioning = true;
-<<<<<<< Updated upstream
-        PlayUIClick();
-        yield return new WaitForSecondsRealtime(transitionClickDelay);
-=======
 
         PlayUIClick();
         yield return new WaitForSecondsRealtime(transitionClickDelay);
 
->>>>>>> Stashed changes
         ResetPauseAndAudioState();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -218,15 +210,10 @@ public class PauseManager : MonoBehaviour
     private IEnumerator QuitToMainMenuRoutine()
     {
         isTransitioning = true;
-<<<<<<< Updated upstream
-        PlayUIClick();
-        yield return new WaitForSecondsRealtime(transitionClickDelay);
-=======
 
         PlayUIClick();
         yield return new WaitForSecondsRealtime(transitionClickDelay);
 
->>>>>>> Stashed changes
         ResetPauseAndAudioState();
         SceneManager.LoadScene("Main_Menu");
     }
@@ -234,15 +221,10 @@ public class PauseManager : MonoBehaviour
     private IEnumerator QuitGameRoutine()
     {
         isTransitioning = true;
-<<<<<<< Updated upstream
-        PlayUIClick();
-        yield return new WaitForSecondsRealtime(transitionClickDelay);
-=======
 
         PlayUIClick();
         yield return new WaitForSecondsRealtime(transitionClickDelay);
 
->>>>>>> Stashed changes
         ResetPauseAndAudioState();
 
 #if UNITY_EDITOR

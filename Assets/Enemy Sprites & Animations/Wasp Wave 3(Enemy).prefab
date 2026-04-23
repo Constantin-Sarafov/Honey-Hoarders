@@ -201,11 +201,7 @@ MonoBehaviour:
   bulletDamageToPlayer: 1
   expPickupPrefab: {fileID: 8680731659396469562, guid: 9fb4a4ea5c1ec654a91b8ba8ad1eda5a, type: 3}
   expDropAmount: 3
-<<<<<<< Updated upstream
-  scoreValue: 30
-=======
   scoreValue: 50
->>>>>>> Stashed changes
   enemyLayer:
     serializedVersion: 2
     m_Bits: 4096

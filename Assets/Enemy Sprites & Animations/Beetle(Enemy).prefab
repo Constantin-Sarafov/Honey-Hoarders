@@ -155,7 +155,7 @@ MonoBehaviour:
   bulletDamage: 1
   damageToPlayer: 1
   damageCooldown: 50
-  expPickupPrefab: {fileID: 7055606611775191274, guid: 63bab532815f079429ded9d80ee7dcf1, type: 3}
+  expPickupPrefab: {fileID: 8680731659396469562, guid: 9fb4a4ea5c1ec654a91b8ba8ad1eda5a, type: 3}
   expDropAmount: 4
   enemyLayer:
     serializedVersion: 2

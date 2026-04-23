@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Royal Jelly
   description: 'Increases the health of the bee '
-  artwork: {fileID: 7628381673963040024, guid: 262d7d2650c89e7469cf88501aa646a0, type: 3}
+  artwork: {fileID: 8536970310021150018, guid: 1810229a85d39e341b44ce2796d8cead, type: 3}
   effectType: 0
   value: 1
   isUnique: 0

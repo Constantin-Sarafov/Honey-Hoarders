@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Buzzing Rush
   description: 'Increases the speed of the bee '
-  artwork: {fileID: 0}
+  artwork: {fileID: -5303247421530120293, guid: 296ddc6f8d2c981459a5ff33b2006d45, type: 3}
   effectType: 2
   value: 2
+  isUnique: 0

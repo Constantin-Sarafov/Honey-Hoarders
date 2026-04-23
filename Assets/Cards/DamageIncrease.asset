@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Sharper Stinger
   description: Enhances the damage of the stinger
-  artwork: {fileID: 0}
+  artwork: {fileID: 7208031091995040905, guid: a103c110ee531eb46a063b8f2bc1b4ca, type: 3}
   effectType: 1
   value: 1
   isUnique: 0

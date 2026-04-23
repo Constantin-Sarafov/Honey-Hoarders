@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FasterShooting
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Faster Stinger
-  description: Faster pew pew
-  artwork: {fileID: 0}
+  description: Increases the fire rate of the stinger
+  artwork: {fileID: 8013177082441527761, guid: e5246a7f76b674149b4ec32a8a6cfc33, type: 3}
   effectType: 5
   value: 10
   isUnique: 0
